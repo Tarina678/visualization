@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "A dashboard with interactive visualizations.",
-  "data": {"url": "data.json"},
+  "data": {"url": ""},
   "vconcat": [
     {
       "mark": "bar",
