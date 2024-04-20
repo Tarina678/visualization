@@ -1,0 +1,32 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "A dashboard with interactive visualizations.",
+  "data": {"url": "data.json"},
+  "vconcat": [
+    {
+      "mark": "bar",
+      "selection": {
+        "highlight": {"type": "single", "empty": "none", "on": "mouseover"}
+      },
+      "encoding": {
+        "y": {"field": "Category", "type": "nominal"},
+        "x": {"field": "Value", "type": "quantitative"},
+        "color": {
+          "condition": {"selection": "highlight", "value": "goldenrod"},
+          "value": "steelblue"
+        }
+      }
+    },
+    {
+      "mark": "line",
+      "selection": {
+        "brush": {"type": "interval", "encodings": ["x"]}
+      },
+      "encoding": {
+        "x": {"field": "Year", "type": "ordinal"},
+        "y": {"field": "Value", "type": "quantitative"},
+        "color": {"field": "Category", "type": "nominal"}
+      }
+    }
+  ]
+}
