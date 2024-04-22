@@ -1,0 +1,161 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/Tarina678/visualization/main/data.csv"
+  },
+  "hconcat": [
+    {
+
+      
+      "width": "400",
+      "height": 500, 
+      "mark": "rect",
+      "offset": 50,
+      "title": {
+    "text": "Average Median Weekly Earnings"
+  },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "title": "Year"
+        },
+        "y": {
+          "field": "quarter",
+          "type": "ordinal",
+          "title": "Quarter"
+        },
+        "color": {
+          "field": "median_weekly_earn",
+          "type": "quantitative",
+          "aggregate": "average",
+          "title": "Average Median Weekly Earnings"
+        },
+        "tooltip": [
+          {"field": "year", "type": "ordinal"},
+          {"field": "quarter", "type": "ordinal"},
+          {"field": "median_weekly_earn", "type": "quantitative", "aggregate": "average"}
+        ]
+      },
+      "selection": {
+        "GlobalYearSelector": {
+          "type": "single",
+          "fields": ["year"],
+          "bind": "scales"
+        }
+      },
+      "transform": [{"filter": {"selection": "GlobalYearSelector"}}]
+    },
+    {
+      "vconcat": [
+        {
+          "width": "500",
+          "height": 300, 
+          "mark": "bar",
+          "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "title": "Year"
+        },
+        "y": {
+          "field": "median_weekly_earn",
+          "type": "quantitative",
+          "title": "Median Weekly Earnings",
+          "stack": null
+        },
+        "color": {
+          "field": "sex",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Men", "Women", "Both Sexes"],
+            "range": ["#1f77b4", "#ff7f0e", "#2ca02c"]
+          },
+          "title": "Sex"
+        },
+        "tooltip": [
+          {"field": "year", "type": "ordinal"},
+          {"field": "sex", "type": "nominal"},
+          {"field": "median_weekly_earn", "type": "quantitative"}
+        ],
+        "xOffset": {
+          "field": "sex",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Men", "Women", "Both Sexes"],
+            "range": [35, 0, 35]
+          }
+        }
+      },
+      "selection": {
+        "GlobalYearSelector": {
+          "type": "single",
+          "fields": ["year"],
+          "bind": "scales"
+        },
+        "sex_selector": {
+          "type": "multi",
+          "fields": ["sex"],
+          "bind": "legend"
+        }
+      },
+      "transform": [{"filter": {"selection": "GlobalYearSelector"}}]
+
+          
+        },
+        {
+         
+          "width": "500",
+          "height": 300,
+          "mark": {
+        "type": "circle",
+        "filled": true,
+        "size": 10
+      },
+          "encoding": {
+        "x": {"field": "n_persons", "type": "quantitative", "title": "Number of Persons"},
+        "y": {"field": "median_weekly_earn", "type": "quantitative", "title": "Median Weekly Earnings"},
+        "color": {
+          "field": "race",
+          "type": "nominal",
+          "scale": {
+            "domain": ["All Races", "Black or African American", "Asian", "White"],
+            "range": ["#666666", "#ff6666", "#00ff00", "#2c7bb6"]
+          },
+          "title": "Race"
+        },
+        "opacity": {
+          "condition": {"selection": "race_selector", "value": 1},
+          "value": 0
+        },
+        "tooltip": [
+          {"field": "n_persons", "type": "quantitative"},
+          {"field": "race", "type": "nominal"},
+          {"field": "median_weekly_earn", "type": "quantitative"}
+        ]
+      },
+      "selection": {
+        "GlobalYearSelector": {
+          "type": "single",
+          "fields": ["year"],
+          "bind": "scales"
+        },
+        "race_selector": {
+          "type": "multi",
+          "fields": ["race"],
+          "bind": "legend"
+        }
+      },
+      "transform": [{"filter": {"selection": "GlobalYearSelector"}}]
+          
+        }
+      ]
+
+    }
+  ],
+  "resolve": {
+    "scale": {
+      "color": "independent"
+    }
+  }
+}
